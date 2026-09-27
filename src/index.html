@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08111e" />
+    <meta name="description" content="Arena 3D de fútbol con autos, renderizada con WebGL." />
+    <title>Car Soccer — Arena 3D</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game" id="game">
+      <canvas id="arena" aria-label="Estadio 3D de fútbol con autos"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar" aria-label="Controles del juego">
+        <div class="brand-mini"><span class="brand-dot"></span> ARENA <span class="brand-divider">/</span> <span id="mapLabel">NEON DOME</span></div>
+        <div class="top-actions">
+          <button class="top-button sponsor-button" id="sponsorButton" type="button" aria-label="Información del proyecto"><span class="trophy">✦</span><span>ARENA</span></button>
+          <button class="icon-button" id="pauseButton" type="button" aria-label="Pausar partida" title="Pausar partida" hidden><span>⏸</span></button>
+          <button class="icon-button" id="recordButton" type="button" aria-label="Grabar clip" title="Grabar un clip"><span class="record-dot"></span></button>
+          <button class="icon-button" id="clipsButton" type="button" aria-label="Ver clips" title="Clips"><span class="film-icon">▤</span></button>
+          <button class="icon-button" id="fullscreenButton" type="button" aria-label="Pantalla completa" title="Pantalla completa"><span class="fullscreen-icon">⛶</span></button>
+          <button class="icon-button" id="settingsButton" type="button" aria-label="Ajustes" title="Ajustes"><span class="gear-icon">⚙</span></button>
+        </div>
+      </header>
+
+      <section class="scoreboard" id="scoreboard" aria-live="polite" hidden>
+        <div class="score-team blue-team"><span>AZUL</span><strong id="blueScore">0</strong></div>
+        <div class="score-time"><small>PARTIDA LOCAL</small><strong id="matchClock">5:00</strong></div>
+        <div class="score-team orange-team"><strong id="orangeScore">0</strong><span>NARANJA</span></div>
+      </section>
+
+      <div class="left-lower">
+        <button class="camera-pill" id="ballCamButton" type="button" aria-pressed="true"><span class="camera-dot"></span><span>Ball cam</span><span class="toggle-state" id="cameraState">ON</span></button>
+        <button class="feature-button garage-button" id="garageButton" type="button">
+          <span class="feature-icon car-icon" aria-hidden="true"><i></i><b></b></span>
+          <span class="feature-copy"><strong>GARAJE</strong><small id="carLabel">Default Car</small></span>
+          <span class="corner-key">G</span>
+        </button>
+      </div>
+
+      <div class="right-lower">
+        <div class="boost-meter" aria-label="Impulso">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="boost-track" cx="60" cy="60" r="49" pathLength="100"/><circle class="boost-fill" id="boostArc" cx="60" cy="60" r="49" pathLength="100"/></svg>
+          <span class="boost-value" id="boostValue">100</span><span class="boost-caption">BOOST</span>
+        </div>
+        <button class="feature-button play-button" id="playButton" type="button">
+          <span class="play-triangle" aria-hidden="true">▶</span>
+          <span class="feature-copy"><strong id="playLabel">PLAY</strong><small id="playSubLabel">PARTIDAS Y MAPAS</small></span>
+          <span class="corner-key">M</span>
+        </button>
+      </div>
+
+      <div class="match-hint" id="matchHint" hidden><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> conducir <span>·</span> <kbd>⇧</kbd> impulso <span>·</span> <kbd>ESPACIO</kbd> saltar <span>·</span> <kbd>ESC</kbd> pausa</div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <section class="panel" id="panel" role="dialog" aria-modal="false" aria-labelledby="panelTitle" hidden>
+        <div class="panel-heading"><div><span class="eyebrow" id="panelEyebrow">ARENA · MENÚ</span><h1 id="panelTitle">PLAY</h1></div><button class="close-button" id="closePanel" type="button" aria-label="Cerrar">×</button></div>
+        <div class="panel-content" id="panelContent"></div>
+        <div class="panel-foot" id="panelFoot"><kbd>ESC</kbd> para cerrar</div>
+      </section>
+
+      <section class="start-banner" id="startBanner" aria-live="polite" hidden>
+        <span class="banner-kicker">¡A LA CANCHA!</span><strong id="bannerCount">3</strong>
+      </section>
+    </main>
+    <script type="module" src="./scene3d.js"></script>
+  </body>
+</html>
